@@ -87,88 +87,100 @@ public class IngresoDeDatos {
 		
 		JButton btnNewButton = new JButton("Ingresar paciente");
 		
-		btnNewButton.setBounds(10, 116, 266, 23);
+		btnNewButton.setBounds(10, 128, 266, 23);
 		frame.getContentPane().add(btnNewButton);
 		
 		JLabel lblNewLabel_1 = new JLabel("Codigo paciente");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(148, 294, 128, 25);
+		lblNewLabel_1.setBounds(148, 309, 128, 25);
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_4 = new JLabel("Codigo medico");
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4.setBounds(10, 189, 128, 21);
+		lblNewLabel_4.setBounds(10, 206, 128, 21);
 		frame.getContentPane().add(lblNewLabel_4);
 		
 		ingresoCodigoMedico = new JTextField();
-		ingresoCodigoMedico.setBounds(10, 150, 128, 28);
+		ingresoCodigoMedico.setBounds(10, 167, 128, 28);
 		frame.getContentPane().add(ingresoCodigoMedico);
 		ingresoCodigoMedico.setColumns(10);
 		
 		codPacDiag = new JTextField();
 		codPacDiag.setColumns(10);
-		codPacDiag.setBounds(148, 267, 128, 28);
+		codPacDiag.setBounds(148, 282, 128, 28);
 		frame.getContentPane().add(codPacDiag);
 		
 		JButton btnIngresarDiagnostico = new JButton("Ingresar diagnostico");
 		
-		btnIngresarDiagnostico.setBounds(10, 333, 266, 23);
+		btnIngresarDiagnostico.setBounds(10, 348, 266, 23);
 		frame.getContentPane().add(btnIngresarDiagnostico);
 		
 		diagnostico = new JTextField();
 		diagnostico.setColumns(10);
-		diagnostico.setBounds(286, 267, 128, 28);
+		diagnostico.setBounds(286, 282, 128, 28);
 		frame.getContentPane().add(diagnostico);
 		
 		JLabel lblNewLabel_2_1 = new JLabel("Diagnostico");
 		lblNewLabel_2_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2_1.setBounds(286, 294, 128, 28);
+		lblNewLabel_2_1.setBounds(286, 309, 128, 28);
 		frame.getContentPane().add(lblNewLabel_2_1);
 		
 		codMedDiag = new JTextField();
 		codMedDiag.setColumns(10);
-		codMedDiag.setBounds(10, 267, 128, 28);
+		codMedDiag.setBounds(10, 282, 128, 28);
 		frame.getContentPane().add(codMedDiag);
 		
 		JLabel lblNewLabel_2_2 = new JLabel("Codigo medico");
 		lblNewLabel_2_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2_2.setBounds(10, 294, 128, 28);
+		lblNewLabel_2_2.setBounds(10, 309, 128, 28);
 		frame.getContentPane().add(lblNewLabel_2_2);
 		
 		JButton btnIngresarMedico = new JButton("Ingresar medico");
 		
-		btnIngresarMedico.setBounds(10, 221, 266, 23);
+		btnIngresarMedico.setBounds(10, 238, 266, 23);
 		frame.getContentPane().add(btnIngresarMedico);
 		
 		ingresoNombreMedico = new JTextField();
 		ingresoNombreMedico.setColumns(10);
-		ingresoNombreMedico.setBounds(148, 150, 128, 28);
+		ingresoNombreMedico.setBounds(148, 167, 128, 28);
 		frame.getContentPane().add(ingresoNombreMedico);
 		
 		ingresoEspecMedico = new JTextField();
 		ingresoEspecMedico.setColumns(10);
-		ingresoEspecMedico.setBounds(286, 150, 128, 28);
+		ingresoEspecMedico.setBounds(286, 167, 128, 28);
 		frame.getContentPane().add(ingresoEspecMedico);
 		
 		JLabel lblNewLabel_5 = new JLabel("Nombre y apellido");
 		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5.setBounds(148, 182, 128, 28);
+		lblNewLabel_5.setBounds(148, 199, 128, 28);
 		frame.getContentPane().add(lblNewLabel_5);
 		
 		JLabel lblEspecializacion = new JLabel("Especializacion");
 		lblEspecializacion.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEspecializacion.setBounds(286, 182, 128, 28);
+		lblEspecializacion.setBounds(286, 199, 128, 28);
 		frame.getContentPane().add(lblEspecializacion);
+		
+		JLabel errorIngresoPaciente = new JLabel("");
+		//errorIngresoPaciente.setEnabled(false);
+		errorIngresoPaciente.setForeground(Color.RED);
+		errorIngresoPaciente.setBounds(10, 113, 266, 13);
+		frame.getContentPane().add(errorIngresoPaciente);
 		
 		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
+					errorIngresoPaciente.setText("");
 					if(ingresoNombrePaciente.getText() != null && ingresoCodigoPaciente.getText() != null)
 					bdatoa.datosDelPaciente(ingresoNombrePaciente.getText(),ingresoCodigoPaciente.getText());
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+				} catch (IllegalArgumentException e) {
+					// TODO: handle exception
+					errorIngresoPaciente.setText(e.getMessage());
+					//errorIngresoPaciente.show();
+					errorIngresoPaciente.setForeground(Color.RED);
 				}
 			}
 		});

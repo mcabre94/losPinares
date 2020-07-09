@@ -58,71 +58,35 @@ class bdatoa
 		try
 		{
 
-			do//menu de seleccion datos del paciente
-			{
-	
-				ps("   ..............................................."+"\n");
-				ps("   :-:  - D A T O S  D E L  P A C I E N T E -  :-:"+"\n");
-				ps("   :-:.........................................:-:"+"\n");
-				ps("   :-:    para recibir ayuda escriba --help    :-:"+"\n");
-				ps("   :-:.........................................:-:"+"\n");
-
-				/* Se lee el codigo de paciente */
-				ps("Digite el codigo del paciente: (o ingrese --help para recibir ayuda)\n");
-				do {
-					//codpac=LeerCadena();
-					codpac = codigoPac;
-					/* Si necesita ayuda sobre lo que se puede ingresar se la proporciona con el comando --help*/
-					if(codpac.equals("--help")) {
-						ps("El codigo paciente debe ser un número entero mayor a 0.\n");
-						ps("Digite el codigo del paciente: (o ingrese --help para recibir ayuda)\n");
-					}
-				}while(codpac.equals("--help"));
-				
-				/* Se testea contra la regexp numerica */
-				/* para ver si es válido el ingreso */
-			    if (!numerico.matcher(codpac).matches()) {
-			        throw new IllegalArgumentException("El codigo paciente debe ser numérico\n");
-			    }
-				
-			    /* Se pide el ingreso del nombre del paciente */
-				ps("Digite el nombre del paciente: (o ingrese --help para recibir ayuda)\n");
-				//nompac=LeerCadena();
-				
-				do {
-					//nompac=LeerCadena();
-					nompac = nombrePac;
-					/* Si necesita ayuda sobre lo que se puede ingresar se la proporciona con el comando --help*/
-					if(nompac.equals("--help")) {
-						ps("El nombre del paciente solo puede contener letras y espacios.\n");
-						ps("Digite el nombre del paciente: (o ingrese --help para recibir ayuda)\n");
-					}
-				}while(nompac.equals("--help"));
-
-				/* Se testea contra la regexp de nombre, que chequea que contenga solo letras, espacios o coma*/
-				/* para ver si es válido el ingreso */
-			    if (!nombre.matcher(nompac).matches()) {
-			        throw new IllegalArgumentException("El nombre debe contener solo letras\n");
-			    }
-			    
-			    /* Se chequea si tiene entre 3 y 30 caracteres el nombre*/
-				/* para ver si es válido el ingreso */
-			    if(nompac.length() < 3 || nompac.length() > 30) {
-			    	throw new IllegalArgumentException("El nombre debe tener entre 3 y 30 caracteres\n");
-			    }
-				
-			    /* Se escribe el codigo de paciente en el archivo*/
-			    datopac.writeUTF(codpac);
-			    /* Se escriben el nombre del paciente en el archivo*/
-			    datopac.writeUTF(nompac);
-
-			    /* Se pregunta si se desea seguir ingresando pacientes*/
-				ps("Desea ingresar otro paciente? S/N"+"\n");
-
-				//op=LeerCadena();
-				op = "n";
-	
-			}while (op.equals("S")||op.equals("s")); //mientras siga tocando s sigue en el while
+			/* Se lee el codigo de paciente */
+			codpac = codigoPac;
+			/* Se testea contra la regexp numerica */
+			/* para ver si es válido el ingreso */
+		    if (!numerico.matcher(codpac).matches()) {
+		        throw new IllegalArgumentException("El codigo paciente debe ser numérico\n");
+		    }
+			
+		    /* Se pide el ingreso del nombre del paciente */
+			nompac = nombrePac;
+			/* Se testea contra la regexp de nombre, que chequea que contenga solo letras, espacios o coma*/
+			/* para ver si es válido el ingreso */
+		    if (!nombre.matcher(nompac).matches()) {
+		        throw new IllegalArgumentException("El nombre debe contener solo letras\n");
+		    }
+		    
+		    /* Se chequea si tiene entre 3 y 30 caracteres el nombre*/
+			/* para ver si es válido el ingreso */
+		    if(nompac.length() < 3 || nompac.length() > 30) {
+		    	throw new IllegalArgumentException("El nombre debe tener entre 3 y 30 caracteres\n");
+		    }
+			
+//		    ps(codpac);
+//		    ps(nompac);
+		    /* Se escribe el codigo de paciente en el archivo*/
+		    datopac.writeUTF(codpac);
+		    /* Se escriben el nombre del paciente en el archivo*/
+		    datopac.writeUTF(nompac);
+		    
 			datopac.close(); 
 
 		}catch(IOException ioe){}; 
@@ -137,36 +101,12 @@ class bdatoa
 
 		try
 		{
-			do//menu de situacion del pacientes
-			{
-
-				ps("   ....................................................."+"\n");
-				ps("   :-: - S I T U A C I O N  D E L  P A C I E N T E - :-:"+"\n");
-				ps("   :-:...............................................:-:"+"\n");
-
-
-				ps("Digite el codigo del paciente: ");
-				//codp=LeerCadena();
-				codp = codPac;
-				situpac.writeUTF(codp);
-				ps("Digite el codigo del medico: ");
-				//codm=LeerCadena();
-				codm = codMed;
-				situpac.writeUTF(codm);
-				ps("Digite el diagnostico del  medico: ");
-				//enfpac=LeerCadena();
-				enfpac = diagnostic;
-				situpac.writeUTF(enfpac);
-
-
-
-
-				ps("Desea ingresar otro registro al historial? S/N");
-				ps("\n");
-				//op=LeerCadena();
-				op= "n";
-
-			}while (op.equals("S")||op.equals("s")); //mientras mantenga s o S continua cargando
+			codp = codPac;
+			situpac.writeUTF(codp);
+			codm = codMed;
+			situpac.writeUTF(codm);
+			enfpac = diagnostic;
+			situpac.writeUTF(enfpac);
 			situpac.close();
 		}catch(IOException ioe){};//si el archivo no exxiste o no se puede abrir sale
 	}
@@ -181,14 +121,12 @@ class bdatoa
 			codpa=datopac.readUTF();
 			nompa=datopac.readUTF();
 
-
-
 			if (codpa.equals(codp))  //compara el codigo del 
 			//paciente de la tabla "situpac" 
 				//con el codigo del paciente de 
 				//la tabla "datopac"
 			{
-				ps("::: Paciente: "+nompa+"\n");
+//				ps("::: Paciente: "+nompa+"\n");
 				((DefaultListModel<String>) lista).addElement(nompa);
 			}
 		}catch(EOFException e){sw1=0;}
@@ -200,38 +138,12 @@ class bdatoa
 		datomed=new DataOutputStream (new FileOutputStream("datomed.txt"));//abro archivo de datos de medico
 		try
 		{ 
-			do//menu de datos del medico
-			{
-
-				ps("   ....................................................."+"\n");
-				ps("   :-:      - D A T O S   D E L   M E D I C O -      :-:"+"\n");
-				ps("   :-:...............................................:-:"+"\n");
-
-				ps("Digite el codigo del medico: ");
-				//codmed=LeerCadena();
-				codmed = codMed;
-				datomed.writeUTF(codmed);
-
-				ps("Digite el nombre del medico: ");
-				//nommed=LeerCadena();
-				nommed = nombreMed;
-				datomed.writeUTF(nommed);
-
-				ps("Digite la especializacion del medico: ");
-				//espmed=LeerCadena();
-				espmed = especMed;
-				datomed.writeUTF(espmed);
-
-
-
-				ps("Desea ingresar otro medico? S/N");
-				ps("\n");
-
-
-				//op=LeerCadena();
-				op = "n";
-
-			}while (op.equals("S")||op.equals("s"));//mientras toque s o S se mantiene cargando 
+			codmed = codMed;
+			datomed.writeUTF(codmed);
+			nommed = nombreMed;
+			datomed.writeUTF(nommed);
+			espmed = especMed;
+			datomed.writeUTF(espmed);
 		}catch(IOException ioe){}; //si no se puede abrir  el archivo sale
 		datomed.close();
 	}
@@ -244,7 +156,7 @@ class bdatoa
 		try
 		{
 
-			ps("Digite el codigo del medico que desea consultar: ");
+//			ps("Digite el codigo del medico que desea consultar: ");
 			//codtem=LeerCadena();
 			codtem = codMed;
 
