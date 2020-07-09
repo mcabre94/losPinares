@@ -54,7 +54,7 @@ class bdatoa
 		final Pattern numerico = Pattern.compile("^[0-9]+$");
 		
 		/* Se abre el archivo a analizar */
-		datopac=new DataOutputStream (new FileOutputStream("datopac.txt"));//abre el archivo datos de pacientes
+		datopac=new DataOutputStream (new FileOutputStream("datopac.txt",true));//abre el archivo datos de pacientes
 		try
 		{
 
@@ -97,7 +97,7 @@ class bdatoa
 		//ingreso de datos, situacion del paciente
 		String codp,codm,enfpac,op;
 		DataOutputStream situpac=null;
-		situpac=new DataOutputStream (new FileOutputStream("situpac.txt"));//abre archivo situacionpacientes
+		situpac=new DataOutputStream (new FileOutputStream("situpac.txt",true));//abre archivo situacionpacientes
 
 		try
 		{
