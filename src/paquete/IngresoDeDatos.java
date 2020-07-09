@@ -166,6 +166,16 @@ public class IngresoDeDatos {
 		errorIngresoPaciente.setBounds(10, 113, 266, 13);
 		frame.getContentPane().add(errorIngresoPaciente);
 		
+		JLabel resultadoIngresoMedico = new JLabel("");
+		resultadoIngresoMedico.setForeground(Color.GREEN);
+		resultadoIngresoMedico.setBounds(10, 225, 266, 13);
+		frame.getContentPane().add(resultadoIngresoMedico);
+		
+		JLabel resultadoIngresoDiagnostico_1 = new JLabel("");
+		resultadoIngresoDiagnostico_1.setForeground(Color.GREEN);
+		resultadoIngresoDiagnostico_1.setBounds(10, 335, 266, 13);
+		frame.getContentPane().add(resultadoIngresoDiagnostico_1);
+		
 		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -173,22 +183,28 @@ public class IngresoDeDatos {
 					errorIngresoPaciente.setText("");
 					if(ingresoNombrePaciente.getText() != null && ingresoCodigoPaciente.getText() != null)
 					bdatoa.datosDelPaciente(ingresoNombrePaciente.getText(),ingresoCodigoPaciente.getText());
+					errorIngresoPaciente.setForeground(Color.GREEN);
+					errorIngresoPaciente.setText("Se guardó correctamente el paciente");
+					
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IllegalArgumentException e) {
 					// TODO: handle exception
+					errorIngresoPaciente.setForeground(Color.RED);
 					errorIngresoPaciente.setText(e.getMessage());
 					//errorIngresoPaciente.show();
-					errorIngresoPaciente.setForeground(Color.RED);
+					
 				}
 			}
 		});
 		btnIngresarMedico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					resultadoIngresoMedico.setText("");
 					if(ingresoNombreMedico.getText() != null && ingresoCodigoMedico.getText() != null && ingresoEspecMedico.getText() != null)
 					bdatoa.datosMedico(ingresoNombreMedico.getText(),ingresoCodigoMedico.getText(),ingresoEspecMedico.getText());
+					resultadoIngresoMedico.setText("Se guardó correctamente el médico");
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -198,8 +214,10 @@ public class IngresoDeDatos {
 		btnIngresarDiagnostico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					resultadoIngresoDiagnostico_1.setText("");
 					if(codPacDiag.getText() != null && codMedDiag.getText() != null && diagnostico.getText() != null)
 					bdatoa.situacionPaciente(codPacDiag.getText(), codMedDiag.getText(), diagnostico.getText());
+					resultadoIngresoDiagnostico_1.setText("Se guardó correctamente el diagnóstico");
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
