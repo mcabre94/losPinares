@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
 import java.awt.Color;
@@ -186,6 +187,17 @@ public class IngresoDeDatos {
 					errorIngresoPaciente.setForeground(Color.GREEN);
 					errorIngresoPaciente.setText("Se guardó correctamente el paciente");
 					
+					Timer t = new Timer(3000, new ActionListener() {
+
+			            @Override
+			            public void actionPerformed(ActionEvent e) {
+			            	errorIngresoPaciente.setText("");
+			            }
+			        });
+			        t.setRepeats(false);
+			        t.start();
+			        
+					
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -205,6 +217,17 @@ public class IngresoDeDatos {
 					if(ingresoNombreMedico.getText() != null && ingresoCodigoMedico.getText() != null && ingresoEspecMedico.getText() != null)
 					bdatoa.datosMedico(ingresoNombreMedico.getText(),ingresoCodigoMedico.getText(),ingresoEspecMedico.getText());
 					resultadoIngresoMedico.setText("Se guardó correctamente el médico");
+					
+					Timer t = new Timer(3000, new ActionListener() {
+
+			            @Override
+			            public void actionPerformed(ActionEvent e) {
+			            	resultadoIngresoMedico.setText("");
+			            }
+			        });
+			        t.setRepeats(false);
+			        t.start();
+			        
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -218,6 +241,17 @@ public class IngresoDeDatos {
 					if(codPacDiag.getText() != null && codMedDiag.getText() != null && diagnostico.getText() != null)
 					bdatoa.situacionPaciente(codPacDiag.getText(), codMedDiag.getText(), diagnostico.getText());
 					resultadoIngresoDiagnostico_1.setText("Se guardó correctamente el diagnóstico");
+					
+					Timer t = new Timer(3000, new ActionListener() {
+
+			            @Override
+			            public void actionPerformed(ActionEvent e) {
+			            	resultadoIngresoDiagnostico_1.setText("");
+			            }
+			        });
+			        t.setRepeats(false);
+			        t.start();
+			        
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
